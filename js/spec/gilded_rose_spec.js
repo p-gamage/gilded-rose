@@ -1,13 +1,13 @@
 describe("Gilded Rose", () => {
+  afterEach(() => {
+    items = [];
+  });
+
   describe("basic functionality", () => {
     beforeEach(() => {
       const normalItem = new Item("normalItem", 5, 10);
       items.push(normalItem);
       update_quality();
-    });
-
-    afterEach(() => {
-      items = [];
     });
 
     it("lowers the quality of a normal item by 1", () => {
@@ -26,10 +26,6 @@ describe("Gilded Rose", () => {
   });
 
   describe("never degrades the quality below 0", () => {
-    afterEach(() => {
-      items = [];
-    });
-
     it("of an item within sell in date", () => {
       items.push(new Item("zeroQuality", 1, 0));
       update_quality();
@@ -44,10 +40,6 @@ describe("Gilded Rose", () => {
   });
 
   describe("increases quality of certain items when they age", () => {
-    afterEach(() => {
-      items = [];
-    });
-
     it("by 1 value for items within sell in date", () => {
       items.push(new Item("Aged Brie", 1, 3));
       update_quality();
@@ -69,16 +61,12 @@ describe("Gilded Rose", () => {
 
   describe("legendary items", () => {
     beforeEach(() => {
-      items.push(new Item("Sulfuras, Hand of Ragnaros", -1, 49));
+      items.push(new Item("Sulfuras, Hand of Ragnaros", -1, 80));
       update_quality();
     });
 
-    afterEach(() => {
-      items = [];
-    });
-
     it("never decrease in quality", () => {
-      expect(items[0].quality).toEqual(50);
+      expect(items[0].quality).toEqual(80);
     });
 
     it("never has to be sold", () => {

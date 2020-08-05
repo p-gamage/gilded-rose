@@ -2,6 +2,7 @@ describe("Gilded Rose", () => {
   const BRIE = "Aged Brie";
   const SULFURAS = "Sulfuras, Hand of Ragnaros";
   const BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert";
+  const CONJURED = "Conjured Mana Cake";
 
   afterEach(() => {
     items = [];
@@ -9,8 +10,7 @@ describe("Gilded Rose", () => {
 
   describe("basic functionality", () => {
     beforeEach(() => {
-      const normalItem = new Item("normalItem", 5, 10);
-      items.push(normalItem);
+      items.push(new Item("normalItem", 5, 10));
       update_quality();
     });
 
@@ -120,5 +120,17 @@ describe("Gilded Rose", () => {
     items.push(new Item(BACKSTAGE_PASS, 0, 5));
     update_quality();
     expect(items[0].quality).toEqual(0);
+  });
+
+  it("degrades the quality twice as fast for conjured items", () => {
+    items.push(new Item(CONJURED, 3, 6));
+    update_quality();
+    expect(items[0].quality).toEqual(4);
+  });
+
+  it("degrades values by 4 times for expired conjured items", () => {
+    items.push(new Item(CONJURED, -1, 6));
+    update_quality();
+    expect(items[0].quality).toEqual(2);
   });
 });

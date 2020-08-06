@@ -21,9 +21,9 @@ function update_quality() {
       if (items[i].quality > 0) {
         if (items[i].name != PRODUCTS.SULFURAS) {
           if (items[i].name == PRODUCTS.CONJURED) {
-            items[i].quality = items[i].quality - 1;
+            decreaseQuality(i);
           }
-          items[i].quality = items[i].quality - 1;
+          decreaseQuality(i);
         }
       }
     } else {
@@ -32,12 +32,12 @@ function update_quality() {
         if (items[i].name == PRODUCTS.BACKSTAGE_PASS) {
           if (items[i].sell_in < 11) {
             if (items[i].quality < 50) {
-              items[i].quality = items[i].quality + 1;
+              increaseQuality(i);
             }
           }
           if (items[i].sell_in < 6) {
             if (items[i].quality < 50) {
-              items[i].quality = items[i].quality + 1;
+              increaseQuality(i);
             }
           }
         }
@@ -54,9 +54,9 @@ function update_quality() {
           if (items[i].quality > 0) {
             if (items[i].name != PRODUCTS.SULFURAS) {
               if (items[i].name == PRODUCTS.CONJURED) {
-                items[i].quality = items[i].quality - 1;
+                decreaseQuality(i);
               }
-              items[i].quality = items[i].quality - 1;
+              decreaseQuality(i);
             }
           }
         } else {
@@ -64,9 +64,17 @@ function update_quality() {
         }
       } else {
         if (items[i].quality < 50) {
-          items[i].quality = items[i].quality + 1;
+          increaseQuality(i);
         }
       }
     }
   }
 }
+
+const decreaseQuality = (index) => {
+  items[index].quality = items[index].quality - 1;
+};
+
+const increaseQuality = (index) => {
+  items[index].quality = items[index].quality + 1;
+};

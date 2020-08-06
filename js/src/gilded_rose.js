@@ -13,14 +13,14 @@ function Item(name, sell_in, quality) {
   this.quality = quality;
 }
 
-var items = [];
+let items = [];
 
 function update_quality() {
-  for (var i = 0; i < items.length; i++) {
+  for (let i = 0; i < items.length; i++) {
     if (!NON_DEGRADING.includes(items[i].name)) {
       if (items[i].quality > 0) {
-        if (items[i].name != PRODUCTS.SULFURAS) {
-          if (items[i].name == PRODUCTS.CONJURED) {
+        if (items[i].name !== PRODUCTS.SULFURAS) {
+          if (items[i].name === PRODUCTS.CONJURED) {
             decreaseQuality(i);
           }
           decreaseQuality(i);
@@ -28,8 +28,8 @@ function update_quality() {
       }
     } else {
       if (items[i].quality < 50) {
-        items[i].quality = items[i].quality + 1;
-        if (items[i].name == PRODUCTS.BACKSTAGE_PASS) {
+        increaseQuality(i);
+        if (items[i].name === PRODUCTS.BACKSTAGE_PASS) {
           if (items[i].sell_in < 11) {
             if (items[i].quality < 50) {
               increaseQuality(i);
@@ -44,23 +44,23 @@ function update_quality() {
       }
     }
 
-    if (items[i].name != PRODUCTS.SULFURAS) {
+    if (items[i].name !== PRODUCTS.SULFURAS) {
       items[i].sell_in = items[i].sell_in - 1;
     }
 
     if (items[i].sell_in < 0) {
-      if (items[i].name != PRODUCTS.BRIE) {
-        if (items[i].name != PRODUCTS.BACKSTAGE_PASS) {
+      if (items[i].name !== PRODUCTS.BRIE) {
+        if (items[i].name !== PRODUCTS.BACKSTAGE_PASS) {
           if (items[i].quality > 0) {
-            if (items[i].name != PRODUCTS.SULFURAS) {
-              if (items[i].name == PRODUCTS.CONJURED) {
+            if (items[i].name !== PRODUCTS.SULFURAS) {
+              if (items[i].name === PRODUCTS.CONJURED) {
                 decreaseQuality(i);
               }
               decreaseQuality(i);
             }
           }
         } else {
-          items[i].quality = items[i].quality - items[i].quality;
+          resetQuality(i);
         }
       } else {
         if (items[i].quality < 50) {
@@ -71,10 +71,14 @@ function update_quality() {
   }
 }
 
-const decreaseQuality = (index) => {
-  items[index].quality = items[index].quality - 1;
+const decreaseQuality = (i) => {
+  items[i].quality = items[i].quality - 1;
 };
 
-const increaseQuality = (index) => {
-  items[index].quality = items[index].quality + 1;
+const increaseQuality = (i) => {
+  items[i].quality = items[i].quality + 1;
+};
+
+const resetQuality = (i) => {
+  items[i].quality = items[i].quality - items[i].quality;
 };

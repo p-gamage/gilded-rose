@@ -1,5 +1,7 @@
 # Gilded Rose
 
+Solution implemented in JavasSctipt 
+
 ### Guidance Notes
 
 - Clone or fork this repo, and do this exercise in any of the available languages that you are most comfortable using.
